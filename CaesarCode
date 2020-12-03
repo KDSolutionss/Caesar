@@ -4,16 +4,16 @@ let S = fs.readFileSync('шифрцезаря.txt');
 S = S.toString();
 let message = "";
 let decryptmessage = "";
-let shift =25;
-let maxfreqletter="e";;
+let shift = 500;
+let maxfreqletter = "e";;
 function encryption(S, shift) {
     for (let i = 0; i < S.length; i++) {
         if (S.charCodeAt(i) >= 65 && S.charCodeAt(i) < 91) {
-            id=(S.charCodeAt(i)-65+shift)%26+65;
+            id = (S.charCodeAt(i) - 65 + shift) % 26 + 65;
             message += String.fromCharCode(id);
         }
         else if (S.charCodeAt(i) >= 97 && S.charCodeAt(i) < 123) {
-            id=(S.charCodeAt(i)-97+shift)%26+97;
+            id = (S.charCodeAt(i) - 97 + shift) % 26 + 97;
             message += String.fromCharCode(id);
         }
         else
@@ -26,49 +26,41 @@ function encryption(S, shift) {
 encryption(S, shift);
 function decryption(message) {
 
-let stat = new Array();
-let max=-1;;
-let maxletter="";
-let decryptshift=0;
-for (var i=0;i<message.length;i++)
-{
-if (message.charCodeAt(i) >= 97 && message.charCodeAt(i) < 123|| message.charCodeAt(i) >= 65 && message.charCodeAt(i) < 91)
-{
-  if (message[i] in stat)
-  {
-    stat[message[i]]+=stat[message[i]]/message.length;
-  }
-  else
-  {
-    stat[message[i]] = 1/message.length;
-  }
-  if (stat[message[i]]>max)
-  {
-	  max=stat[message[i]];
-	  maxletter=message[i];
-  }
-}
-}
-decryptshift=-maxfreqletter.charCodeAt(0)+maxletter.charCodeAt(0);
-console.log(decryptshift);
- for (let i = 0; i < message.length; i++) 
- {
-	 let newid=0;
-        if (message.charCodeAt(i) >= 65 && message.charCodeAt(i) < 91) 
-		{
-            newid=(message.charCodeAt(i)-65-(decryptshift)+26)%26+65;
+    let stat = new Array();
+    let max = -1;;
+    let maxletter = "";
+    let decryptshift = 0;
+    for (var i = 0; i < message.length; i++) {
+        if (message.charCodeAt(i) >= 97 && message.charCodeAt(i) < 123 || message.charCodeAt(i) >= 65 && message.charCodeAt(i) < 91) {
+            if (message[i] in stat) {
+                stat[message[i]] += stat[message[i]] / message.length;
+            }
+            else {
+                stat[message[i]] = 1 / message.length;
+            }
+            if (stat[message[i]] > max) {
+                max = stat[message[i]];
+                maxletter = message[i];
+            }
+        }
+    }
+    decryptshift = -maxfreqletter.charCodeAt(0) + maxletter.charCodeAt(0);
+    console.log(decryptshift);
+    for (let i = 0; i < message.length; i++) {
+        let newid = 0;
+        if (message.charCodeAt(i) >= 65 && message.charCodeAt(i) < 91) {
+            newid = (message.charCodeAt(i) - 65 - (decryptshift) + 26) % 26 + 65;
             decryptmessage += String.fromCharCode(newid);
         }
-        else if (message.charCodeAt(i) >= 97 && message.charCodeAt(i) < 123)
-		{
-            newid=(message.charCodeAt(i)-97-(decryptshift)+26)%26+97;
+        else if (message.charCodeAt(i) >= 97 && message.charCodeAt(i) < 123) {
+            newid = (message.charCodeAt(i) - 97 - (decryptshift) + 26) % 26 + 97;
             decryptmessage += String.fromCharCode(newid);
         }
         else
             decryptmessage += String.fromCharCode(message.charCodeAt(i));
- }
-fs.writeFileSync('decryption.txt', decryptmessage);
-console.log("The text has been decrypted!");
+    }
+    fs.writeFileSync('decryption.txt', decryptmessage);
+    console.log("The text has been decrypted!");
 }
 
 decryption(message);
