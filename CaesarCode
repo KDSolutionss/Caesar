@@ -4,7 +4,7 @@ let S = fs.readFileSync('шифрцезаря.txt');
 S = S.toString();
 let message = "";
 let decryptmessage = "";
-let shift = 500;
+let shift = 20;
 let maxfreqletter = "e";;
 function encryption(S, shift) {
     for (let i = 0; i < S.length; i++) {
