@@ -33,7 +33,7 @@ function decryption(message) {
     for (var i = 0; i < message.length; i++) {
         if (message.charCodeAt(i) >= 97 && message.charCodeAt(i) < 123 || message.charCodeAt(i) >= 65 && message.charCodeAt(i) < 91) {
             if (message[i] in stat) {
-                stat[message[i]] += stat[message[i]] / message.length;
+                stat[message[i]] += 1 / message.length;
             }
             else {
                 stat[message[i]] = 1 / message.length;
